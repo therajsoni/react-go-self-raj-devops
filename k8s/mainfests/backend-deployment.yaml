@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: rajsoni968392/frontend-office-user-manage:latest
+          image: rajsoni968392/backend-office-user-manage:latest
           env:
             - name: MONGO_URI
               valueFrom:
