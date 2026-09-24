@@ -19,18 +19,18 @@ spec:
       namespace: manage
       labels:
         app: backend-pods
-      spec:
-        containers:
-          - name: backend
-            image: backend_office_management:latest
-            env:
-              - name: MONGO_URI
-                valueFrom:
-                  secretKeyRef:
-                    name: secret-backend
-                    key: MONGO_URI
-              - name: PORT
-                valueFrom:
-                  configMapKeyRef:
-                    name: config-backend-api
-                    key: PORT
+    spec:
+      containers:
+        - name: backend
+          image: backend_office_management:latest
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: secret-backend
+                  key: MONGO_URI
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: config-backend-api
+                  key: PORT

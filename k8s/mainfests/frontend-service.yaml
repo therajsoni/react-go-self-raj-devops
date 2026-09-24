@@ -4,7 +4,7 @@ metadata:
   name: frontend-service
   namespace: manage
 spec:
-  type: NodeSelector
+  type: NodePort
   selector:
     app: frontend-pods
   ports:
