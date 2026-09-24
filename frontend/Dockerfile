@@ -8,7 +8,7 @@ run npm run build
 
 from nginx:alpine 
 workdir /app 
-copy /dist /usr/share/nginx/html/ 
+copy --from=/app/dist /usr/share/nginx/html/ 
 run adduser -D rajsoni
 user rajsoni
 cmd ["nginx" , "-g" , "deamon off;"]
