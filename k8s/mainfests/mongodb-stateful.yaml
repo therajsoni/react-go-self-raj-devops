@@ -32,10 +32,10 @@ spec:
                 secretKeyRef:
                   name: mongo-secret
                   key: MONGO_INITDB_ROOT_PASSWORD
-      volumeMounts:
+          volumeMounts:
+            - name: mongo-volume
+              mountPath: /data/db
+      volumes:
         - name: mongo-volume
-          mountPath: /data/db
-    volumes:
-      - name: mongo-volume
-        persistentVolumeClaim:
-          claimName: persistentvolumeclaim
+          persistentVolumeClaim:
+            claimName: persistentvolumeclaim
