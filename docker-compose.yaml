@@ -15,9 +15,9 @@ services:
     build:
       context: ./backend
     environment:
-      - MONGO_URI: mongodb://mongodb:27017/
-      - PORT: 8080
-      - frontend_port: http://frontend:80
+      MONGO_URI: mongodb://mongodb:27017/
+      PORT: 8080
+      frontend_port: http://frontend:80
     ports:
       - "8080:8080"
     networks:
