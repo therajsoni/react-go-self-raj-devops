@@ -6,9 +6,11 @@ run npm install
 copy . .
 run npm run build 
 
+run ls -la
+
 from nginx:alpine 
 workdir /app 
-run ls
+run ls -la
 copy /app/dist /usr/share/nginx/html/ 
 run adduser -D rajsoni
 user rajsoni
