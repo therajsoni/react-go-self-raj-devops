@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: manage
+spec:
+  metadata:
+    name: backend-pod
+    namespace: manage
+    labels:
+      app: backend-pods
+    spec:
+      replicas: 3
+      strategy:
+        type: rollingUpdate
+        RollingUpdate:
+          maxUnavaible: 2
+          maxSurge: 2
+      containers:
+        - name: backend
+          image: backend_office_management:latest
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  - name: secret-backend
+                    key: MONGO_URI
+            - name: PORT
+              valueFrom:
+                configKeyRef:
+                  - name: config-backend-api
+                    key: PORT

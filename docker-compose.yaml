@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  frontend:
+    depends_on: backend
+    build:
+      context: ./frontend
+    environment:
+      - VITE_BACKEND_API_KEY=http://backend:8080/api/users
+    ports:
+      - "80:5173"
+    networks:
+      - app-network
+  backend:
+    depends_on: mongodb
+    build:
+      context: ./backend
+    environment:
+      - MONGO_URI: mongodb://mongodb:27017/
+      - PORT: 8080
+      - frontend_port: http://frontend:80
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
+volumes:
+  mongo-data:
+networks:
+  app-network:

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  namespace: manage
+spec:
+  replicas: 3
+  metadata:
+    name: frontend-pod
+    namespace: manage
+    labels:
+      app: frontend-pods
+    spec:
+      containers:
+        - name: frontend
+          image: frontend_office_management:latest
+          env:
+            - name: VITE_BACKEND_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secret-frontend-vite
+                  key: backend_api_key

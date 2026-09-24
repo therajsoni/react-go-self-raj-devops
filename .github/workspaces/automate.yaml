@@ -1,0 +1,64 @@
+name: "automate"
+on:
+  - push
+  - workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: nodeSetup
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: build Project
+        run: |
+          cd frontend
+          npm install 
+          npm run test
+          npm run build
+          cd ..
+      - name: goSetup
+        uses: actions/setup-go@v5
+        with:
+          go-version: "stable"
+      - name: backend build
+        run: |
+          go mod tidy 
+          go build -o backend .
+          cd ..
+      - name: Docker Login
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      - name: Image build
+        run: |
+          cd frontend
+          docker build -t frontend_Office_User_Manage:latest . 
+          docker tag frontend_Office_User_Manage:latest {{ secrets.DOCKER_USERNAME }}/frontend_Office_User_Manage:latest 
+          docker push {{ secrets.DOCKER_USERNAME }}/frontend_Office_User_Manage:latest
+          cd ..
+          cd backend
+          docker build -t backend_Office_User_Manage:latest .
+          docker tag backend_Office_User_Manage:latest {{ secrets.DOCKER_USERNAME }}/backend_Office_User_Manage:latest 
+          docker push {{ secrets.DOCKER_USERNAME }}/backend_Office_User_Manage:latest
+          cd ..
+      # - name: k8s config
+      #   uses: aws-actions/configure-aws-credentials@v4
+      #   with:
+      #     aws-access-key-id: ${{ secrets.aws_access_key }}
+      #     aws-secret-access-key: ${{ secrets.aws_secret_key }}
+      #     region: ${{ secrets.aws_region }}
+      # - name: kubectl config
+      #   uses: azure/setup-kubectl@v4
+      # - name: configure eks
+      #   run: |
+      #     aws eks update-kubeconfig --region ${{ secrets.aws_region }} --name ${{ secrets.eks_clsuter_name }}
+      # - name: deploy on k8s
+      #   run: |
+      #     cd k8s
+      #     cd manifests
+      #     kubectl apply -f backend-deployment.yaml
+      #     kubectl apply -f frontend-deployment.yaml
+      #     kubectl apply -f mongodb-stateful.yaml

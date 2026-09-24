@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-backend-api
+  namespace: manage
+data:
+  PORT: 8080
+  frontend_port: 

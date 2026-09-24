@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: PersistentVolumeClaim
+  namespace: manage
+spec:
+  resources:
+    requests:
+      storage: "10Mi"
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
