@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: frontend_office_management:latest
+          image: frontend-office-user-manage:latest
           env:
             - name: VITE_BACKEND_API_KEY
               valueFrom:
