@@ -26,6 +26,7 @@ jobs:
           go-version: "stable"
       - name: backend build
         run: |
+          cd backend
           go mod tidy 
           go build -o backend .
           cd ..
