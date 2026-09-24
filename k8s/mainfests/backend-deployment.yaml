@@ -20,6 +20,8 @@ spec:
       labels:
         app: backend-pods
     spec:
+      imagePullSecrets:
+        - name: dockerhub-secret
       containers:
         - name: backend
           image: rajsoni968392/backend-office-user-manage:latest
