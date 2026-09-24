@@ -8,8 +8,6 @@ run go build -o backend .
 
 from alpine:latest
 workdir /app 
-copy --from=builder --chown=appUser:appUser /app/backend ./
-run adduser -D appUser
-user appUser
+copy --from=builder  /app/backend ./backend
 expose 8080 
 cmd ["./backend"]
