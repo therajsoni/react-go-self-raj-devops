@@ -1,8 +1,7 @@
 version: "3.8"
 services:
   frontend:
-    depends_on:
-      - backend
+    depends_on: [backend]
     build:
       context: ./frontend
     environment:
@@ -12,7 +11,7 @@ services:
     networks:
       - app-network
   backend:
-    depends_on: mongodb
+    depends_on: [mongodb]
     build:
       context: ./backend
     environment:
