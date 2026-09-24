@@ -5,9 +5,9 @@ services:
     build:
       context: ./frontend
     environment:
-      - VITE_BACKEND_API_KEY=http://backend:8080/api/users
+      - VITE_BACKEND_API_KEY=http://localhost:8080/api/users
     ports:
-      - "80:5173"
+      - "80:80"
     networks:
       - app-network
   backend:
