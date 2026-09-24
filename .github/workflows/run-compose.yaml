@@ -1,0 +1,12 @@
+name: "compose-run"
+on:
+  workflow_dispatch:
+jobs:
+  task:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkcode
+        uses: actions/checkcode@v4
+      - name: docker compose
+        run: |
+          docker compose up
