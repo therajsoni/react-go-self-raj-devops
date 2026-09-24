@@ -8,6 +8,7 @@ run npm run build
 
 from nginx:alpine 
 workdir /app 
+run ls
 copy /app/dist /usr/share/nginx/html/ 
 run adduser -D rajsoni
 user rajsoni
