@@ -3,7 +3,6 @@ label name="user management backend app"
 workdir /app 
 copy go.mod go.sum ./ 
 run go mod download 
-run go sum download
 copy . .
 run go build -o backend . 
 
