@@ -5,12 +5,11 @@ copy package*.json ./
 run npm install 
 copy . .
 run npm run build 
-
-run ls -la
+run ls -la /app
 
 from nginx:alpine 
 workdir /app 
-run ls -la
+run ls -la /app 
 copy /app/dist /usr/share/nginx/html/ 
 run adduser -D rajsoni
 user rajsoni
