@@ -37,12 +37,12 @@ jobs:
         run: |
           cd frontend
           docker build -t frontend_office_user_manage:latest . 
-          docker tag frontend_office_user_manage:latest {{ secrets.DOCKER_USERNAME }}/frontend_office_user_manage:latest 
+          docker tag {{ secrets.DOCKER_USERNAME }}/frontend_office_user_manage:latest frontend_office_user_manage:latest  
           docker push {{ secrets.DOCKER_USERNAME }}/frontend_office_user_manage:latest
           cd ..
           cd backend
           docker build -t backend_office_user_manage:latest .
-          docker tag backend_office_user_manage:latest {{ secrets.DOCKER_USERNAME }}/backend_office_user_manage:latest 
+          docker tag {{ secrets.DOCKER_USERNAME }}/backend_office_user_manage:latest backend_office_user_manage:latest  
           docker push {{ secrets.DOCKER_USERNAME }}/backend_office_user_manage:latest
           cd ..
       # - name: k8s config
