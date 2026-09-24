@@ -6,7 +6,8 @@ metadata:
 spec:
   replicas: 3
   selector:
-    app: frontend-pods
+    matchLabels:
+      app: frontend-pods
   template:
     metadata:
       name: frontend-pod

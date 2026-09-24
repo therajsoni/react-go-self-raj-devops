@@ -8,6 +8,6 @@ spec:
   selector:
     app: mongo-pod
   ports:
-    port: 27017
-    targetPort: 27017
-    nodePort: 32767
+    - port: 27017
+      targetPort: 27017
+      nodePort: 32767
