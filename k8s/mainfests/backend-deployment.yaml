@@ -4,29 +4,33 @@ metadata:
   name: backend-deployment
   namespace: manage
 spec:
-  metadata:
-    name: backend-pod
-    namespace: manage
-    labels:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2
+      maxSurge: 2
+  selector:
+    matchLabels:
       app: backend-pods
-    spec:
-      replicas: 3
-      strategy:
-        type: rollingUpdate
-        RollingUpdate:
-          maxUnavaible: 2
-          maxSurge: 2
-      containers:
-        - name: backend
-          image: backend_office_management:latest
-          env:
-            - name: MONGO_URI
-              valueFrom:
-                secretKeyRef:
-                  - name: secret-backend
+  template:
+    metadata:
+      name: backend-pod
+      namespace: manage
+      labels:
+        app: backend-pods
+      spec:
+        containers:
+          - name: backend
+            image: backend_office_management:latest
+            env:
+              - name: MONGO_URI
+                valueFrom:
+                  secretKeyRef:
+                    name: secret-backend
                     key: MONGO_URI
-            - name: PORT
-              valueFrom:
-                configKeyRef:
-                  - name: config-backend-api
+              - name: PORT
+                valueFrom:
+                  configMapKeyRef:
+                    name: config-backend-api
                     key: PORT

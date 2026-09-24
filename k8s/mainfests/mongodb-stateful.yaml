@@ -4,32 +4,36 @@ metadata:
   name: mongo
   namespace: manage
 spec:
-  replicas: 5
-  metadata:
-    name: mongo-pod
-    namespace: manage
-    labels:
-      app: mongo-pod
-    containers:
-      - name: mongo image
-        image: mongo:latest
-        ports:
-          - "27017:27017"
-        environment:
-          - name: MONGO_INITDB_ROOT_USERNAME
-            envFrom:
-              secretKeyRef:
-                - name: mongo-sceret
-                  key: MONGO_INITDB_ROOT_USERNAME
-          - name: MONGO_INITDB_ROOT_PASSWORD
-            envFrom:
-              secretKeyRef:
-                - name: mongo-secret
-                  key: MONGO_INITDB_ROOT_PASSWORD
+  replicas: 3
+  selector:
+    app: mongo-pod
+  template:
+    metadata:
+      name: mongo-pod
+      namespace: manage
+      labels:
+        app: mongo-pod
+      spec:
+        containers:
+          - name: mongo image
+            image: mongo:latest
+            ports:
+              - "27017:27017"
+            environment:
+              - name: MONGO_INITDB_ROOT_USERNAME
+                envFrom:
+                  secretKeyRef:
+                    - name: mongo-sceret
+                      key: MONGO_INITDB_ROOT_USERNAME
+              - name: MONGO_INITDB_ROOT_PASSWORD
+                envFrom:
+                  secretKeyRef:
+                    - name: mongo-secret
+                      key: MONGO_INITDB_ROOT_PASSWORD
         volumeMount:
           - name: mongo-volume
             mountPath: /data
-    volumes:
-      - name: mongo-volume
-        persistentVolumeClaim:
-          claimName: PersistentVolumeClaim
+      volumes:
+        - name: mongo-volume
+          persistentVolumeClaim:
+            claimName: PersistentVolumeClaim

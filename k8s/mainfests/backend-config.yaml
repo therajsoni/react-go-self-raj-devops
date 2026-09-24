@@ -4,5 +4,5 @@ metadata:
   name: config-backend-api
   namespace: manage
 data:
-  PORT: 8080
-  frontend_port: 
+  PORT: "8080"
+  frontend_port: "http://frontend:80"
