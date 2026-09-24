@@ -1,7 +1,8 @@
 version: "3.8"
 services:
   frontend:
-    depends_on: backend
+    depends_on:
+      - backend
     build:
       context: ./frontend
     environment:
