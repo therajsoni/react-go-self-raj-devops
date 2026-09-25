@@ -14,11 +14,11 @@ import (
 
 func main() {
 
-	err := godotenv.Load()
+	// err := godotenv.Load()
 
-	if err != nil {
-		log.Println(".env file not found")
-	}
+	// if err != nil {
+	// 	log.Println(".env file not found")
+	// }
 
 	database.ConnectMongoDB()
 
