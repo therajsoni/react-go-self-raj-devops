@@ -2,16 +2,16 @@ version: "3.8"
 services: 
   frontend:  
       build: ./frontend 
-      env:
+      environment:
          VITE_BACKEND_API_KEY: http://backend:8080/api/users
       ports: 
           - "80:80"
-      depands_on: 
+      depends_on: 
            - backend
            - mongodb
   backend: 
       build: ./backend
-      env: 
+      environment: 
         frontend_port: http://frontend:80 
         PORT: 8080 
         MONGO_URI: mongodb://admin:Password%401234@mongodb:27017/users
@@ -21,9 +21,8 @@ services:
            - mongodb
   mongodb: 
       image: mongo:latest 
-      env:
+      environment:
         MONGO_INITDB_ROOT_USERNAME: admin
         MONGO_INITDB_ROOT_PASSWORD: password 
       ports: 
         - "27017:27017"
-                         
