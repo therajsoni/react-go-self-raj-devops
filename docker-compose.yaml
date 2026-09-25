@@ -14,7 +14,7 @@ services:
       environment: 
         FrontendPort: http://frontend:80 
         PORT: 8080 
-        MONGO_URI: mongodb://admin:Password%401234@mongodb:27017/users
+        MONGO_URI: "mongodb://admin:Password%401234@mongodb:27017/users?authSource=admin"
       ports:
          - "8080:8080"
       depends_on: 
