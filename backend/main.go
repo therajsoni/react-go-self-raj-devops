@@ -13,21 +13,19 @@ import (
 
 func main() {
 
-	// err := godotenv.Load()
-
-	// if err != nil {
-	// 	log.Println(".env file not found")
-	// }
-
 	database.ConnectMongoDB()
 
 	router := routes.SetupRoutes()
 
-	frontend_port := os.Getenv("FrontendPort")
+	frontendPort := os.Getenv("FrontendPort")
+
+	if frontendPort == "" {
+		frontendPort = "http://localhost"
+	}
 
 	corsHandler := cors.New(cors.Options{
 		AllowedOrigins: []string{
-			frontend_port,
+			frontendPort,
 		},
 		AllowedMethods: []string{
 			"GET",
@@ -38,6 +36,7 @@ func main() {
 		},
 		AllowedHeaders: []string{
 			"Content-Type",
+			"Authorization",
 		},
 	}).Handler(router)
 
@@ -47,9 +46,9 @@ func main() {
 		port = "8080"
 	}
 
-	log.Println("Server running on " + port)
+	log.Println("Server running on port " + port)
 
-	err = http.ListenAndServe(":"+port, corsHandler)
+	err := http.ListenAndServe(":"+port, corsHandler)
 
 	if err != nil {
 		log.Fatal(err)
