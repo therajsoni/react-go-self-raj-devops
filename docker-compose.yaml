@@ -12,7 +12,7 @@ services:
   backend: 
       build: ./backend
       environment: 
-        frontend_port: http://frontend:80 
+        FrontendPort: http://frontend:80 
         PORT: 8080 
         MONGO_URI: mongodb://admin:Password%401234@mongodb:27017/users
       ports:

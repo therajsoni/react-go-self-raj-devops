@@ -8,7 +8,6 @@ import (
 	"office-user-management/database"
 	"office-user-management/routes"
 
-	"github.com/joho/godotenv"
 	"github.com/rs/cors"
 )
 
